@@ -16,7 +16,7 @@ const verifyResetTokenSchema = new Schema({
         type: Date,
         required: true,
         default: Date.now,
-        expired: 900, // 900s (15 mins)
+        expires: 900, // 900s (15 mins)
     },
 });
 
