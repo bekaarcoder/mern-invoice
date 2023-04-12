@@ -57,7 +57,6 @@ const userSchema = new Schema(
         },
         passwordConfirm: {
             type: String,
-            required: true,
             validate: {
                 validator: function (value) {
                     return value === this.password;
@@ -98,7 +97,7 @@ const userSchema = new Schema(
             type: Boolean,
             default: true,
         },
-        refereshToken: [String],
+        refreshToken: [String],
     },
     {
         timestamps: true, // stores timestamp when the model is created (createdAt) or updated (updatedAt)
