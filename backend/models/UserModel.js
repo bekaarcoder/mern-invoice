@@ -128,7 +128,7 @@ userSchema.pre('save', async function (next) {
         return next();
     }
 
-    this.passwordChangedAt = Date.now;
+    this.passwordChangedAt = Date.now();
 });
 
 userSchema.methods.comparePassword = async function (givenPassword) {
