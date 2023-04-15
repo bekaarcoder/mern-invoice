@@ -65,3 +65,15 @@ To stop and remove the container
 -   **4 - verbose:** records detailed messages
 -   **5 - debug:** help in debugging out code
 -   **6 - silly:** current stack trade of function should be printed out
+
+### Dependencies Required for Frontend
+
+1. react-icons
+2. react-router-dom
+3. react-toastify
+4. bootstrap
+5. moment
+6. formik
+7. yup
+8. react-jwt
+9. framer-motion

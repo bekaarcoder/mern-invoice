@@ -1,8 +1,18 @@
+import { Route, Routes } from 'react-router-dom';
+import Layout from './components/Layout';
+import HomePage from './pages/HomePage';
+import NotFound from './components/NotFound';
+
 const App = () => {
     return (
-        <div>
-            <h1>Welcome to MERN Invoice App</h1>
-        </div>
+        <>
+            <Routes>
+                <Route path="/" element={<Layout />}>
+                    <Route index element={<HomePage />} />
+                    <Route path="*" element={<NotFound />} />
+                </Route>
+            </Routes>
+        </>
     );
 };
 
