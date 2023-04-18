@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage';
 import NotFound from './components/NotFound';
 import useTitle from './hooks/useTitle';
 import SignUp from './pages/SignUp';
+import VerifiedPage from './pages/VerifiedPage';
 
 const App = () => {
     useTitle('MERN Invoice - Home');
@@ -14,7 +15,8 @@ const App = () => {
             <Routes>
                 <Route path="/" element={<Layout />}>
                     <Route index element={<HomePage />} />
-                    <Route path="/register" element={<SignUp />} />
+                    <Route path="register" element={<SignUp />} />
+                    <Route path="auth/verify" element={<VerifiedPage />} />
                     <Route path="*" element={<NotFound />} />
                 </Route>
             </Routes>

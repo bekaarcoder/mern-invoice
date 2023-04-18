@@ -8,8 +8,12 @@ const GoogleLogin = () => {
     };
 
     return (
-        <button className="btn btn-outline-info" onClick={google}>
-            <FcGoogle /> Login With Google
+        <button
+            className="btn btn-light btn-lg d-flex align-items-center gap-3 px-5"
+            onClick={google}
+        >
+            <FcGoogle />
+            <span>Login With Google</span>
         </button>
     );
 };
