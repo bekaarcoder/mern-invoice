@@ -19,5 +19,17 @@ code {
 }
 
 a {
-  color: #20c997 !important;
+  color:  #79dfc1 !important;
+}
+
+a:hover {
+  color: #20c997 !important ;
+}
+
+.active {
+  color: #20c997 !important ;
+}
+
+.avatar {
+  width: 40px;
 }
