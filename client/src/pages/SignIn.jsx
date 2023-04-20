@@ -20,7 +20,10 @@ const SignIn = () => {
                             </div>
                             <div className="text-center my-3">
                                 Didn't Get The Verification Email?{' '}
-                                <Link to="/resend" className="">
+                                <Link
+                                    to="/resend-verification-email"
+                                    className=""
+                                >
                                     Resend Email
                                 </Link>
                             </div>
