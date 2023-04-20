@@ -11,6 +11,7 @@ import SignIn from './pages/SignIn';
 import { useSelector } from 'react-redux';
 import Navbar from './components/Navbar';
 import ResendEmailTokenPage from './pages/ResendEmailTokenPage';
+import ResetPasswordRequestPage from './pages/ResetPasswordRequestPage';
 
 const App = () => {
     useTitle('MERN Invoice - Home');
@@ -26,6 +27,10 @@ const App = () => {
                     <Route
                         path="resend-verification-email"
                         element={<ResendEmailTokenPage />}
+                    />
+                    <Route
+                        path="reset-password-request"
+                        element={<ResetPasswordRequestPage />}
                     />
                     <Route path="auth/verify" element={<VerifiedPage />} />
                     <Route path="*" element={<NotFound />} />

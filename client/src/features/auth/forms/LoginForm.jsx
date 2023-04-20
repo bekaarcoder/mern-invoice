@@ -115,7 +115,7 @@ const LoginForm = () => {
                                             >
                                                 Password
                                             </label>
-                                            <Link to="/forgot-password">
+                                            <Link to="/reset-password-request">
                                                 Forgot your password?
                                             </Link>
                                         </div>
