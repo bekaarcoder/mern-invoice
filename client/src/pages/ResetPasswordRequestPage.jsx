@@ -18,7 +18,7 @@ const ResetPasswordRequestPage = () => {
 
     useEffect(() => {
         if (isSuccess) {
-            navigate('/');
+            navigate('/login');
             const message = data?.message;
             toast.success(message);
         }

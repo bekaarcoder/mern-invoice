@@ -66,7 +66,7 @@ const resetPasswordRequest = asyncHandler(async (req, res) => {
 // $-auth   Public
 
 const resetPassword = asyncHandler(async (req, res) => {
-    const { password, passwordConfirm, userId, emailToken } = req.body;
+    const { password, passwordConfirm, userId, token } = req.body;
 
     if (!password) {
         res.status(400);
@@ -90,7 +90,7 @@ const resetPassword = asyncHandler(async (req, res) => {
     }
 
     const passwordResetToken = await VerifyResetToken.findOne({
-        token: emailToken,
+        token: token,
     });
     if (!passwordResetToken) {
         res.status(400);
