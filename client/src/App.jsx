@@ -13,6 +13,10 @@ import Navbar from './components/Navbar';
 import ResendEmailTokenPage from './pages/ResendEmailTokenPage';
 import ResetPasswordRequestPage from './pages/ResetPasswordRequestPage';
 import PasswordResetPage from './pages/PasswordResetPage';
+import { ROLES } from './config/roles';
+import UserListPage from './pages/UserListPage';
+import DashboardPage from './pages/DashboardPage';
+import AuthRequired from './components/AuthRequired';
 
 const App = () => {
     useTitle('MERN Invoice - Home');
@@ -38,6 +42,20 @@ const App = () => {
                         element={<PasswordResetPage />}
                     />
                     <Route path="auth/verify" element={<VerifiedPage />} />
+
+                    {/* Private Routes - Users*/}
+                    <Route
+                        element={<AuthRequired allowedRoles={[ROLES.USER]} />}
+                    >
+                        <Route path="dashboard" element={<DashboardPage />} />
+                    </Route>
+
+                    {/* Private Routes - Admin */}
+                    <Route
+                        element={<AuthRequired allowedRoles={[ROLES.ADMIN]} />}
+                    >
+                        <Route path="users" element={<UserListPage />} />
+                    </Route>
                     <Route path="*" element={<NotFound />} />
                 </Route>
             </Routes>
