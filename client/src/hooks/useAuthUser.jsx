@@ -1,11 +1,15 @@
 import { decodeToken } from 'react-jwt';
 import { useSelector } from 'react-redux';
-import { selectCurrentUserToken } from '../features/auth/authSlice';
+import {
+    selectCurrentUserToken,
+    selectCurrentUserGoogleToken,
+} from '../features/auth/authSlice';
 
 const useAuthUser = () => {
     const token = useSelector(selectCurrentUserToken);
-    let isAdmin = false;
+    const googleToken = useSelector(selectCurrentUserGoogleToken);
 
+    let isAdmin = false;
     let accessRight = 'User';
 
     if (token) {
@@ -15,7 +19,15 @@ const useAuthUser = () => {
         isAdmin = roles.includes('Admin');
         if (isAdmin) accessRight = 'Admin';
         return { roles, isAdmin, accessRight };
+    } else if (googleToken) {
+        const googleDecodedToken = decodeToken(googleToken);
+        const { roles } = googleDecodedToken;
+
+        isAdmin = roles.includes('Admin');
+        if (isAdmin) accessRight = 'Admin';
+        return { roles, isAdmin, accessRight };
     }
+
     return { roles: [], isAdmin, accessRight };
 };
 

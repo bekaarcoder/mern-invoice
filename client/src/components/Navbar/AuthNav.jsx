@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import useAuthUser from '../../hooks/useAuthUser';
 import { FiLogOut } from 'react-icons/fi';
@@ -7,11 +7,14 @@ import { CgProfile } from 'react-icons/cg';
 import { BsPersonGear } from 'react-icons/bs';
 import { useLogoutUserMutation } from '../../features/auth/authApiSlice';
 import { toast } from 'react-toastify';
+import { isExpired } from 'react-jwt';
+import { logout } from '../../features/auth/authSlice';
 
 const AuthNav = () => {
-    const { user } = useSelector((state) => state.auth);
+    const { user, googleToken } = useSelector((state) => state.auth);
     const { isAdmin } = useAuthUser();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [logoutUser, { data, isSuccess }] = useLogoutUserMutation();
 
     const handleLogout = async () => {
@@ -29,6 +32,17 @@ const AuthNav = () => {
             toast.success(message);
         }
     }, [isSuccess, data]);
+
+    useEffect(() => {
+        if (googleToken) {
+            const isTokenExpired = isExpired(googleToken);
+            if (isTokenExpired) {
+                dispatch(logout());
+                navigate('/login');
+                toast.warning('You have been logged out. Please login again.');
+            }
+        }
+    }, [navigate, dispatch, googleToken]);
 
     return (
         <nav
@@ -108,7 +122,7 @@ const AuthNav = () => {
                             </li>
                         )}
                     </ul>
-                    <ul className="navbar-nav mb-2 mb-lg-0">
+                    <ul className="navbar-nav mb-2 mb-lg-0 d-flex align-items-center">
                         <li className="nav-item dropdown">
                             <Link
                                 className="nav-link dropdown-toggle"
@@ -154,13 +168,23 @@ const AuthNav = () => {
                             </ul>
                         </li>
                         <li className="nav-item">
-                            <Link
-                                className="nav-link rounded-circle bg-success d-flex align-items-center justify-content-center text-white avatar"
-                                to="/profile"
-                            >
-                                {user.firstName.charAt(0).toUpperCase()}
-                                {user.lastName.charAt(0).toUpperCase()}
-                            </Link>
+                            {!user?.avatar ? (
+                                <Link
+                                    className="nav-link rounded-circle bg-success d-flex align-items-center justify-content-center text-white avatar"
+                                    to="/profile"
+                                >
+                                    {user.firstName.charAt(0).toUpperCase()}
+                                    {user.lastName?.charAt(0).toUpperCase()}
+                                </Link>
+                            ) : (
+                                <Link className="nav-link " to="/profile">
+                                    <img
+                                        src={user.avatar}
+                                        alt="profile"
+                                        className="rounded-circle bg-success d-flex align-items-center justify-content-center avatar"
+                                    />
+                                </Link>
+                            )}
                         </li>
                     </ul>
                 </div>

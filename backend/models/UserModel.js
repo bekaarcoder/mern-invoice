@@ -39,7 +39,6 @@ const userSchema = new Schema(
         },
         lastName: {
             type: String,
-            required: true,
             trim: true,
             validate: [
                 validator.isAlphanumeric,
@@ -48,7 +47,6 @@ const userSchema = new Schema(
         },
         password: {
             type: String,
-            required: true,
             select: false,
             validate: [
                 validator.isStrongPassword,
