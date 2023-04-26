@@ -1,4 +1,5 @@
 import chalk from 'chalk';
+import path from 'path';
 import cookieParser from 'cookie-parser';
 import 'dotenv/config';
 import express from 'express';
@@ -11,6 +12,7 @@ import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import customerRoutes from './routes/customerRoutes.js';
 import documentRoutes from './routes/documentRoutes.js';
+import uploadRoutes from './routes/uploadRoutes.js';
 import { apiLimiter } from './middleware/apiLimiter.js';
 import passport from 'passport';
 import googleAuth from './config/passportSetup.js';
@@ -18,6 +20,9 @@ import googleAuth from './config/passportSetup.js';
 await connectionToDB();
 
 const app = express();
+
+const __dirname = path.resolve();
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
@@ -44,6 +49,7 @@ app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/user', apiLimiter, userRoutes);
 app.use('/api/v1/customer', apiLimiter, customerRoutes);
 app.use('/api/v1/document', apiLimiter, documentRoutes);
+app.use('/api/v1/upload', apiLimiter, uploadRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

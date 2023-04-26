@@ -1,6 +1,6 @@
 const errorHandler = (err, req, res, next) => {
     const statusCode =
-        err.name === 'ValidationError'
+        err.name === 'ValidationError' || err.name === 'MulterError'
             ? 400
             : res.statusCode
             ? res.statusCode
